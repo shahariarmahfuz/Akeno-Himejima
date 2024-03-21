@@ -9,6 +9,7 @@ module.exports = {
   	version: "1.0.0",
   	permssion: 0,
     credits: "Deku",
+	  prefix: true,
 	  description: "Generate image on Render 3D",
   	category: "AI",
   	usages: "[prompt]",
