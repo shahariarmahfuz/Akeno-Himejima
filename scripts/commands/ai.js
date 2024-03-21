@@ -11,7 +11,7 @@ module.exports = {
   usages: "query",
   cooldowns: 5,
   
-};  
+}
   
 module.exports.run = async ({ api, event, args }) => {
     const axios = require("axios");
