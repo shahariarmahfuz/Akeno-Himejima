@@ -10,51 +10,31 @@ module.exports = {
   category: "user", 
   usages: "query",
   cooldowns: 5,
-  dependencies: {
-    "nayan-server": ''
-  }
-  },
-
-  start: async function({ nayan, events, args, Users }) {
-
-    const axios = require("axios")
-    const request = require("request")
-    const fs = require("fs-extra")
-  const uid = events.senderID;
-  var nn = await Users.getNameUser(uid);
-  let np = args.join(" ");
-  const { gpt } = require("nayan-server");
-
-gpt({
-    messages: [
-        {
-            role: "assistant",
-            content: "Hello! How are you today?"
-        },
-        {
-            role: "user",
-            content: `Hello, my name is ${nn}.`
-        },
-        {
-            role: "assitant",
-            content: `Hello, ${nn}! How are you today?`
+  
+};  
+  
+module.exports.run = async ({ api, event, args }) => {
+    const axios = require("axios");
+    let prompt = args.join(" "),
+      uid = event.senderID,
+      url;
+    if (!prompt) return api.sendMessage(`Please enter a prompt.`, event.threadID, event.messageID);
+    
+    try {
+      const apis = `https://gemini-api.replit.app`;
+      if (event.type == "message_reply"){
+        if (event.messageReply.attachments[0]?.type == "photo"){
+        url = encodeURIComponent(event.messageReply.attachments[0].url);
+        const res = (await axios.get(apis + "/gemini?prompt="+prompt+"&url="+url+"&uid="+uid)).data;
+        return api.sendMessage(`${res.gemini}`, event.threadID, event.messageID)
+        } else {
+          return api.sendMessage('Please reply to an image.', event.threadID, event.messageID)
         }
-    ],
-    prompt: `${np}`,
-    model: "GPT-4",
-    markdown: false
-}, (err, data) => {
-    console.log(data)
-  const answer = data.gpt
-    var msg = [];
-    {
-        msg += `${answer}`
-    }
-    return nayan.reply({
-        body: msg
-
-    }, events.threadID, events.messageID);
-  });
-
-  }
-};
+      }
+      const rest = (await axios.get(apis + "/gemini?prompt=" + prompt + "&uid=" + uid)).data;
+      return api.sendMessage(rest.gemini, event.threadID, event.messageID)
+    } catch (e) {
+      console.log(e);
+      return api.sendMessage(e.message, event.threadID, event.messageID);
+    } //end of catch
+  };
