@@ -5,7 +5,7 @@
   credits: "Deku", //converted to botpack, mirai by berwin
   usePrefix: false,
   description: "this command will help you to answer your questions!",
-  commandCategory: "Artificial Intelligence",
+  category: "Artificial Intelligence",
   usages: "(name_of_cmd) [query]",
   cooldowns: 0
 };  
