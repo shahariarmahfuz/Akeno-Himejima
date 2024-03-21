@@ -1,14 +1,13 @@
- module.exports = {
-  config: {
+module.exports.config = {
   name: "gemini",
   version: "1.0.0",
-  permission: 0,
-  credits: "Nayan",
-  description: "",
-  prefix: true, 
-  category: "user", 
-  usages: "query",
-  cooldowns: 5,
+  Permssion: 0,
+  credits: "Deku", //converted to botpack, mirai by berwin
+  usePrefix: false,
+  description: "this command will help you to answer your questions!",
+  category: "Artificial Intelligence",
+  usages: "(name_of_cmd) [query]",
+  cooldowns: 0
 };  
   
 module.exports.run = async ({ api, event, args }) => {
