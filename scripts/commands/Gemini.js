@@ -1,9 +1,9 @@
  module.exports.config = {
   name: "gemini",
   version: "1.0.0",
-  hasPermssion: 0,
+  Permssion: 0,
   credits: "Deku", //converted to botpack, mirai by berwin
-  usePrefix: false,
+  Prefix: true,
   description: "this command will help you to answer your questions!",
   category: "Artificial Intelligence",
   usages: "(name_of_cmd) [query]",
